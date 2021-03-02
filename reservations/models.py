@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+
+# python utils과 다른 점 : 어플리케이션 서버의 시간대를 알 수가 있음 그리고 그걸 사용자의 시간대로 변환해줌
 from core import models as core_models
 
 
@@ -30,3 +33,15 @@ class Reservation(core_models.TimeStampedModel):
 
     def __str__(self):
         return f"{self.room} = {self.check_in}"
+
+    def in_progress(self):
+        now = timezone.now().date()
+        return now >= self.check_in and now <= self.check_out
+
+    in_progress.boolean = True
+
+    def in_finished(self):
+        now = timezone.now().date()
+        return now > self.check_out
+
+    in_finished.boolean = True

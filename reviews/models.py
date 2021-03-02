@@ -23,3 +23,18 @@ class Review(core_models.TimeStampedModel):
     def __str__(self):
         return f"{self.review} - {self.room}"
         #                        self.room.name
+
+    # model에 함수를 쓰기위한 기준은
+    # 1. 그게 계산이 필요한 뭔가라면 2. 그게 여기저기 반복되어질 경우(어드민 패널에서만 쓰이지 않고 프론트에서도 사용되는 경우)
+    def rating_average(self):
+        avg = (
+            self.accuracy
+            + self.communitication
+            + self.cleanliness
+            + self.location
+            + self.check_in
+            + self.value
+        ) / 6
+        return round(avg, 2)
+
+    rating_average.short_description = "AVG."
