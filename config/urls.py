@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
+from django.conf import (
+    settings,
+)  # 파일명은 바뀔 수도 있기 때문에 직접적으로 경로를 통해 import 하지 않는다. ex) from . import settings
 from django.conf.urls.static import (
     static,
 )  # static 파일들을 제공하는 걸 돕는 장고 헬퍼 (Django helper)
-
-# 파일명은 바뀔 수도 있기 때문에 직접적으로 경로를 통해 import 하지 않는다. ex) from . import settings
 
 urlpatterns = [
     path("", include("core.urls", namespace="core")),
