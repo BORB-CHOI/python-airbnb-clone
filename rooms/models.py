@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse  # template name 을 url로 변환할 때
 from django_countries.fields import CountryField
 from core import models as core_models
 

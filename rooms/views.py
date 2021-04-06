@@ -1,10 +1,12 @@
 # from math import ceil
 # from django.core.paginator import Paginator, EmptyPage
-# from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect
+
 # from django.http import Http404
-# from django.urls import reverse
+# from django.urls import reverse # template name 을 url로 변환할 때
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
+from django_countries import countries
 from . import models
 
 ### Class Based Views
@@ -35,6 +37,21 @@ class RoomDetail(DetailView):
     model = models.Room
     # pk_url_kwarg = "pk"
     # url.py 에서 argument(pk)를 찾고 Model Name(Room)을 소문자로 변환해서 context로 pk에 맞는 object와 room을 준다.
+
+
+def search(request):
+    city = request.GET.get("city", "anywhere")
+    city = str.capitalize(city)
+    room_types = models.RoomType.objects.all()
+
+    return render(
+        request,
+        "rooms/search.html",
+        {"city": city, "countries": countries, "room_types": room_types},
+    )
+
+
+#############################################################################################################################
 
 
 # def room_detail(request, pk):

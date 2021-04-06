@@ -131,11 +131,14 @@ class RoomAdmin(admin.ModelAdmin):
         # QuerySet은 객체를 담은 똑똑한(manager) 리스트. | 다양한 기능(function)들이 있음 (QuerySet 검색)
         # ex) borb.room_set.all()
         return obj.amenities.count()
+
     count_amenities.short_description = "Amenity count"
 
     def count_photos(self, obj):
         return obj.photos.count()
+
     count_photos.short_description = "Photo count"
+
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
