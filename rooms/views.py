@@ -1,20 +1,21 @@
 # from math import ceil
-# from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator  # , EmptyPage
 from django.shortcuts import render, redirect
 
 # from django.http import Http404
 # from django.urls import reverse # template name 을 url로 변환할 때
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
-from django_countries import countries
-from . import models
+from django.views.generic import ListView, DetailView, View
+
+# from django_countries import countries
+from . import models, forms
 
 ### Class Based Views
 
 
 class HomeView(ListView):
 
-    """ HomeView Definition """
+    """HomeView Definition"""
 
     context_object_name = "rooms"
     model = models.Room
@@ -32,36 +33,96 @@ class HomeView(ListView):
 
 class RoomDetail(DetailView):
 
-    """ RoomDetail Definition"""
+    """RoomDetail Definition"""
 
     model = models.Room
     # pk_url_kwarg = "pk"
     # url.py 에서 argument(pk)를 찾고 Model Name(Room)을 소문자로 변환해서 context로 pk에 맞는 object와 room을 준다.
 
 
-def search(request):
-    city = request.GET.get("city", "anywhere")
-    city = str.capitalize(city)
-    country = request.GET.get("country", "KR")
-    room_type = request.GET.get("country", 0)
-    room_types = models.RoomType.objects.all()
+class SearchView(View):
 
-    form = {
-        "city": city,
-        "select_room_type": room_type,
-        "select_country": country,
-    }
+    """SearchView Definition"""
 
-    choices = {
-        "countries": countries,
-        "room_types": room_types,
-    }
+    def get(self, request):
 
-    return render(
-        request,
-        "rooms/search.html",
-        {**form, **choices},
-    )
+        country = request.GET.get("country")
+
+        if country:
+            form = forms.SearchForm(request.GET)
+
+            if form.is_valid():
+                print(form.cleaned_data)
+
+                city = form.cleaned_data.get("city")
+                country = form.cleaned_data.get("country")
+                price = form.cleaned_data.get("price")
+                guests = form.cleaned_data.get("guests")
+                beds = form.cleaned_data.get("beds")
+                bedrooms = form.cleaned_data.get("bedrooms")
+                baths = form.cleaned_data.get("baths")
+                superhost = form.cleaned_data.get("host")
+                instant_book = form.cleaned_data.get("instant_book")
+                amenities = form.cleaned_data.get("amenities")
+                facilities = form.cleaned_data.get("facilities")
+                house_rules = form.cleaned_data.get("house_rules")
+                room_type = form.cleaned_data.get("room_type")
+
+                filter_args = {}
+
+                if city != "Anywhere":
+                    filter_args["city__startswith"] = city
+
+                filter_args["country"] = country
+
+                if room_type is not None:
+                    filter_args["room_type"] = room_type
+
+                if price is not None:
+                    filter_args["price__lte"] = price
+
+                if guests is not None:
+                    filter_args["guests__gte"] = guests
+
+                if bedrooms is not None:
+                    filter_args["bedrooms__gte"] = bedrooms
+
+                if beds is not None:
+                    filter_args["beds__gte"] = beds
+
+                if baths is not None:
+                    filter_args["baths__gte"] = baths
+
+                if instant_book is True:
+                    filter_args["instant_book"] = True
+
+                if superhost is True:
+                    filter_args["host__superhost"] = True
+
+                for amenity in amenities:
+                    filter_args["amenities"] = amenity
+
+                for facility in facilities:
+                    filter_args["facilities"] = facility
+
+                qs = models.Room.objects.filter(**filter_args).order_by("-created")
+                paginator = Paginator(qs, 10, orphans=5)
+                page = request.GET.get("page", 1)
+                rooms = paginator.get_page(page)
+
+                return render(
+                    request,
+                    "rooms/search.html",
+                    {"form": form, "rooms": rooms},
+                )
+        else:
+            form = forms.SearchForm()
+
+        return render(
+            request,
+            "rooms/search.html",
+            {"form": form},
+        )
 
 
 #############################################################################################################################

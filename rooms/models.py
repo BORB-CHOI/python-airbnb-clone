@@ -20,7 +20,7 @@ class AbstractItem(core_models.TimeStampedModel):
 
 class RoomType(AbstractItem):
 
-    """ RommType Model Definition """
+    """RommType Model Definition"""
 
     class Meta:
         verbose_name = "Room Type"
@@ -29,7 +29,7 @@ class RoomType(AbstractItem):
 
 class Amenity(AbstractItem):
 
-    """ Amenity Model Definition """
+    """Amenity Model Definition"""
 
     class Meta:
         verbose_name_plural = "Amenities"
@@ -37,7 +37,7 @@ class Amenity(AbstractItem):
 
 class Facility(AbstractItem):
 
-    """ Facility Model Defnition """
+    """Facility Model Defnition"""
 
     class Meta:
         verbose_name_plural = "Facilities"
@@ -45,7 +45,7 @@ class Facility(AbstractItem):
 
 class HouseRule(AbstractItem):
 
-    """ HouseRule Model Defnition """
+    """HouseRule Model Defnition"""
 
     class Meta:
         verbose_name = "House Rule"
@@ -53,7 +53,7 @@ class HouseRule(AbstractItem):
 
 class Photo(core_models.TimeStampedModel):
 
-    """ Photo Model Definition """
+    """Photo Model Definition"""
 
     caption = models.CharField(max_length=80)
     file = models.ImageField(upload_to="room_photos")
@@ -65,15 +65,15 @@ class Photo(core_models.TimeStampedModel):
 
 class Room(core_models.TimeStampedModel):
 
-    """ Room Model Definition """
+    """Room Model Definition"""
 
     name = models.CharField(max_length=140)
     description = models.TextField()
-    country = CountryField()
     city = models.CharField(max_length=80)
+    country = CountryField()
     price = models.IntegerField()
     address = models.CharField(max_length=140)
-    guests = models.IntegerField()
+    guests = models.IntegerField(help_text="How many people will be staying?")
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
     baths = models.IntegerField()

@@ -141,3 +141,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # P:\GitHub\python-airbnb\uploads\ 를 lalala.com/uploads/medias/로 설정
 MEDIA_URL = "/media/"
 # P:\GitHub\python-airbnb\uploads\ 를 lalala.com/medias/로 설정
+
+
+# Email Configuration
+
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+EMAIL_FROM = os.environ.get("MAILGUN_USERNAME")
