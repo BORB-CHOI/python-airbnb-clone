@@ -143,3 +143,4 @@ cython_debug/
 
 uploads/
 .vscode
+node_modules/

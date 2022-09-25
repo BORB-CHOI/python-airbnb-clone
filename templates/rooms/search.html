@@ -9,18 +9,15 @@ Search
 
 {% block content %}
 
-<h2>Search!</h2>
-
-<form method="get" action="{% url "rooms:search" %}">
-    {{form.as_p}}
-    <button>Search</button>
-    {% comment %} 하나의 form 안에 buuton이 1 개면 자동으로 type이 submit이 됨 {% endcomment %}
-</form>
-
-<h3>Results</h3>
-
-{% for room in rooms %}
-    <h3>{{room.name}}</h3>
-{% endfor %}
+  <h2>Search!</h2>
+  <form method="get" action="{% url "rooms:search" %}">
+      {{form.as_p}}
+      <button>Search</button>
+      {% comment %} 하나의 form 안에 buuton이 1 개면 자동으로 type이 submit이 됨 {% endcomment %}
+  </form>
+  <h3>Results</h3>
+  {% for room in rooms %}
+      <h3>{{room.name}}</h3>
+  {% endfor %}
 
 {% endblock content %}
