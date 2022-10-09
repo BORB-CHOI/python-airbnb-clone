@@ -1,8 +1,15 @@
-<div>
-  <a href="{% url 'users:github-login' %}"> 
-    Continue with Github
+<div class="w-full my-5">
+  <div class="flex items-center w-full">
+    <div class="h-px w-full bg-gray-400"></div>
+    <span class="text-gray-600 font-medium mx-4 text-sm">or</span>
+    <div class="h-px w-full bg-gray-400"></div>
+  </div>
+  <a href="{% url 'users:github-login' %}" class="btn hover:bg-slate-50 text-center">
+    <i class="fa-brands fa-github text-2xl"></i>
+    <span class="w-11/12 block">Continue with Github</span>
   </a>
-  <a href="{% url 'users:kakao-login' %}"> 
-    Continue with Kakao
+  <a href="{% url 'users:kakao-login' %}" class="btn hover:bg-slate-50 text-center">
+    <i class="fa-solid fa-comment text-2xl"></i> 
+    <span class="w-11/12 block">Continue with Kakao</span>
   </a>
 </div>

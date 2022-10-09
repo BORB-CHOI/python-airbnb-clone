@@ -1,35 +1,46 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <title>{% block page_title %}{% endblock page_title %} | Nbnb</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block page_title %}{% endblock page_title %} | Nbnb</title>
+  </head>
 
-<body class="text-gray-800 mt-24" >
-  <header class="container max-w-full flex items-center justify-between px-40 h-20 border-b border-gray-200 fixed bg-white inset-0">
-    <a href="{% url 'core:home' %}">
-      <div class="flex items-center">
-        <img class="w-8" src="{% static 'img/logo.png' %}"/>
-        <span class="ml-2" href="{% url 'core:home' %}">Nbnb</span>
-      </div>
-    </a>
-    {% block search_bar %}
-      <form  method="get" action="{% url "rooms:search" %}">
-        <input class = "search-bar w-96 border border-gray-200 font-medium placeholder-gray-500 px-6 py-3 rounded-full shadow hover:shadow-md focus:outline-none" name='city' placeholder="Search by City" />
-      </form>
-    {% endblock search_bar %}
-    {% include "partials/nav.html" %}
-  </header>
+  <body class="text-gray-800 pt-24 font-light">
+    {% include 'partials/messages.html' %}
+    <header class="container max-w-full flex items-center justify-between px-40 h-20 border-b border-gray-200 fixed bg-white inset-0">
+      <a class="h-full flex items-center" href="{% url 'core:home' %}">
+        <div class="flex items-center">
+          <img class="w-8" src="{% static 'img/logo.png' %}"/>
+          <span class="ml-2" href="{% url 'core:home' %}">Nbnb</span>
+        </div>
+      </a>
+      {% block search_bar %}
+        <form  method="get" action="{% url "rooms:search" %}">
+          <input class = "search-bar w-96 border border-gray-200 font-medium placeholder-gray-500 px-6 py-3 rounded-full shadow hover:shadow-md focus:outline-none"
+          name='city'
+          placeholder="{% trans 'Search by City' %}" />
+        </form>
+      {% endblock search_bar %}
+      {% include "partials/nav.html" %}
+    </header>
 
-  {% block content %}{% endblock content %}
+    {% block content %}{% endblock content %}
 
-  {% include "partials/footer.html" %}
-
-</body>
-
+    {% include "partials/footer.html" %}
+    
+    <script>
+      const langSelect = document.getElementById("js-lang");
+      const handleLangChange = () => {
+          const selected = langSelect.value;
+          fetch(`{% url 'users:switch-language' %}?lang=${selected}`).then(() => window.location.reload());
+      }
+      langSelect.addEventListener("change", handleLangChange);
+    </script>
+  </body>
 </html>

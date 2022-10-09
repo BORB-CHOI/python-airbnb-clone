@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block page_title %}
+Create Room
+{% endblock page_title %}
+
+{% block search_bar %}
+{% endblock search_bar %}
+
+{% block content %}
+
+<div class="continue-view">
+  <div class="w-full text-center font-bold py-5 border-b border-gray-200">create room</div>
+  <div class="w-full px-6">
+    {% include 'mixins/room/room_form.html' with form=form cta="Create room" %}
+  </div>
+</div>
+
+{% endblock content %}

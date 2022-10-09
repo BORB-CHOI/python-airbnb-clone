@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block page_title %}
+    Upload photo
+{% endblock page_title %}
+
+{% block search_bar %}
+{% endblock search_bar %}
+
+{% block content %}
+
+    <div class="continue-view">
+        {% include 'mixins/room/room_form.html' with form=form cta="Upload photo" %}
+    </div>
+{% endblock content %}

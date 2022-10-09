@@ -4,7 +4,7 @@ from . import models
 
 @admin.register(models.Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    """ Reservation Admin Definition """
+    """Reservation Admin Definition"""
 
     list_display = (
         "room",
@@ -13,7 +13,12 @@ class ReservationAdmin(admin.ModelAdmin):
         "check_out",
         "guest",
         "in_progress",
-        "in_finished",
+        "is_finished",
     )
 
     list_filter = ("status",)
+
+
+@admin.register(models.BookedDay)
+class BookedDayAdmin(admin.ModelAdmin):
+    pass

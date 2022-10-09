@@ -1,3 +1,30 @@
-<footer>
-    &copy; Nbnb
+{% load i18n %}
+
+<footer class="container max-w-full fixed py-3 inset-x-0 bottom-0 bg-white border-t border-gray-200 text-gray-500 flex justify-between">
+    <div class="mx-36 text-base my-auto">
+        <span>&copy; 2022 Nbnb, Inc.</span>
+        <span>·</span>
+        <span>{% trans 'Privacy' %}</span>
+        <span>·</span>
+        <span>{% trans 'Terms' %}</span>
+        <span>·</span>
+        <span>{% trans 'Sitemap' %}</span>
+        <span>·</span>
+        <span>{% trans 'Destinations' %}</span>
+    </div>
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="flex items-center justify-end w-1/3 mr-10">
+        <select class="w-1/5 h-7" id="js-lang">
+            <option value="en"
+                {% if LANGUAGE_CODE == 'en' %}
+                selected
+                {% endif %}
+            >English</option>
+            <option value="ko"
+                {% if LANGUAGE_CODE == 'ko' %}
+                    selected
+                {% endif %}
+            >Korean</option>
+        </select>
+    </div>
 </footer>

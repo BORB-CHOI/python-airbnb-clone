@@ -4,10 +4,10 @@ from core import models as core_models
 
 class List(core_models.TimeStampedModel):
 
-    """ List Model Definitions """
+    """List Model Definitions"""
 
     name = models.CharField(max_length=80)
-    user = models.ForeignKey("users.User", related_name="lists", on_delete=True)
+    user = models.OneToOneField("users.User", related_name="list", on_delete=True)
     rooms = models.ManyToManyField("rooms.Room", related_name="lists", blank=True)
 
     def __str__(self):

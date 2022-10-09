@@ -1,0 +1,19 @@
+<a class="w-1/5 mb-10 px-2 overflow-hidden" href="{% url 'rooms:detail' room.pk %}">
+  <div class="w-full h-72 bg-cover bg-center bg-slate-300 rounded-lg" style="background-image: url({{room.first_photo}});"></div>
+  <!-- <div class="w-full h-72 bg-cover bg-center bg-slate-300 rounded-lg" style="background-image: url();"></div> -->
+  <div class="w-full flex justify-between">
+    <div class="font-bold block truncate" >{{room.city}}, {{room.country.name}}</div>
+    <div class="flex items-center">
+      <i class="fa-sharp fa-solid fa-star mr-1 text-xs"></i>
+      <span>
+        {% if room.total_rating != 0 %}
+            {{room.total_rating}}
+        {% else %}
+            New
+        {% endif %}
+      </span>
+    </div>
+  </div>
+  <div class="text-gray-400" >{{room.check_in}} - {{room.check_out}}</div>
+  <div><span class="font-bold">${{room.price}}</span></div>
+</a>

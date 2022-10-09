@@ -9,12 +9,13 @@ Log In
 
 {% block content %}
 
-  {% include 'partials/social_login.html' %}
-
-  <form method="POST" action="{% url "users:login" %}">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>Login</button>
-  </form>
+<div class="continue-view">
+  <div class="w-full text-center font-bold py-5 border-b border-gray-200">login or signup</div>
+  <div class="w-full px-6">
+    <h1 class="text-start text-2xl font-semibold mt-8 mb-4">Welcome to Nbnb</h1>
+    {% include 'mixins/auth/auth_form.html' with form=form cta="Continue" %}
+    {% include 'partials/social_login.html' %}
+  </div>
+</div>
 
 {% endblock content %}
