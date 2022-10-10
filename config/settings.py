@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", "True"))
+DEBUG = bool(os.environ.get("DEBUG"))
 # DEBUG = True
 
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost", "127.0.0.1"]
@@ -182,11 +182,12 @@ LOGIN_URL = "/users/login/"
 
 # Locale
 
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+
 if not DEBUG:
 
     # AWS S3
-
-    LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
     DEFAULT_FILE_STORAGE = "config.custom_storages.UploadStorage"
     STATICFILES_STORAGE = "config.custom_storages.StaticStorage"
