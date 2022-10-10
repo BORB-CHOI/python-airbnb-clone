@@ -11,11 +11,11 @@ django-seed = "*"
 django-dotenv = "*"
 requests = "*"
 sentry-sdk = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 flake8 = "*"
 black = "*"
-awsebcli = "*"
 pipenv-to-requirements = "*"
 
 [requires]
