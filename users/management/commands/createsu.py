@@ -1,15 +1,18 @@
 from django.core.management.base import BaseCommand
 from users.models import User
 
+NAME = "superuser"
+
 
 class Command(BaseCommand):
 
-    help = "This command creates superuser"
+    help = f"This command create superuser"
 
     def handle(self, *args, **options):
         admin = User.objects.get_or_none(username="ebadmin")
-        if admin is None:
-            User.objects.create_superuser("ebadmin", "nico@nomadcoders.co", "123456")
+
+        if not admin:
+            User.objects.create_superuser("ebadmin", "ebadmin@admin.com", "ebadmin")
             self.stdout.write(self.style.SUCCESS(f"Superuser Created"))
         else:
             self.stdout.write(self.style.SUCCESS(f"Superuser Exists"))
